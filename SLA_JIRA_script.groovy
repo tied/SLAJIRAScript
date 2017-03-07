@@ -22,7 +22,7 @@ ComponentManager componentManager = ComponentManager.getInstance()
 def changeHistoryManager = componentManager.getChangeHistoryManager() 
 
 
-// Высчитываем время потраченное в эскалированных тикетах и заносим в переменную destOverallM
+// Р’С‹СЃС‡РёС‚С‹РІР°РµРј РІСЂРµРјСЏ РїРѕС‚СЂР°С‡РµРЅРЅРѕРµ РІ СЌСЃРєР°Р»РёСЂРѕРІР°РЅРЅС‹С… С‚РёРєРµС‚Р°С… Рё Р·Р°РЅРѕСЃРёРј РІ РїРµСЂРµРјРµРЅРЅСѓСЋ destOverallM
     def projectManager = componentManager.getProjectManager()
     def String FIELD_LINK_TYPE = 'escalates'
   def html
@@ -73,7 +73,7 @@ def add = ""
 def inOpenM = System.currentTimeMillis() - issue.getCreated().getTime()
 ot << inOpenM
 
-// Вычисляем время между переходом из одного статуса в другой и заполняем одномерные массивы
+// Р’С‹С‡РёСЃР»СЏРµРј РІСЂРµРјСЏ РјРµР¶РґСѓ РїРµСЂРµС…РѕРґРѕРј РёР· РѕРґРЅРѕРіРѕ СЃС‚Р°С‚СѓСЃР° РІ РґСЂСѓРіРѕР№ Рё Р·Р°РїРѕР»РЅСЏРµРј РѕРґРЅРѕРјРµСЂРЅС‹Рµ РјР°СЃСЃРёРІС‹
 
 changeHistoryManager.getChangeItemsForField (issue, "status").reverse().each {ChangeItemBean item ->
   
@@ -140,7 +140,7 @@ changeHistoryManager.getChangeItemsForField (issue, "IssueType").reverse().each 
 
 */
 
-// Массив сла
+// РњР°СЃСЃРёРІ СЃР»Р°
 
 int[][] matrixA;
 matrixA = new int[4][4];
@@ -166,7 +166,7 @@ matrixA[3][2] = 4320
 matrixA[3][3] = 4320
 
 
-// Определяем тип тикета
+// РћРїСЂРµРґРµР»СЏРµРј С‚РёРї С‚РёРєРµС‚Р°
 def Type2
 if (issue.getIssueType().name.toString() == "Incident") { 
   Type2 = 0
@@ -181,7 +181,7 @@ else {  Type2 = 3
 }
  // end of if-else
   
-// Определяем приоритет тикета и выбераем сла
+// РћРїСЂРµРґРµР»СЏРµРј РїСЂРёРѕСЂРёС‚РµС‚ С‚РёРєРµС‚Р° Рё РІС‹Р±РµСЂР°РµРј СЃР»Р°
   
   def Priority
   //def ttt
@@ -204,8 +204,8 @@ else if (issue.getPriorityObject().name.toString() == "Critical") {
 } // end of if-else
   
   
-// Если решена, то подсчитываем время между получением статуса resolved и временем создания тикета
-// если нет, то текущее время - время создания тикета    
+// Р•СЃР»Рё СЂРµС€РµРЅР°, С‚Рѕ РїРѕРґСЃС‡РёС‚С‹РІР°РµРј РІСЂРµРјСЏ РјРµР¶РґСѓ РїРѕР»СѓС‡РµРЅРёРµРј СЃС‚Р°С‚СѓСЃР° resolved Рё РІСЂРµРјРµРЅРµРј СЃРѕР·РґР°РЅРёСЏ С‚РёРєРµС‚Р°
+// РµСЃР»Рё РЅРµС‚, С‚Рѕ С‚РµРєСѓС‰РµРµ РІСЂРµРјСЏ - РІСЂРµРјСЏ СЃРѕР·РґР°РЅРёСЏ С‚РёРєРµС‚Р°      
 if (issue.getStatus().name.toString() == "Resolved") {
   inOverallM = resolved - issue.getCreated().getTime()
 }
@@ -213,7 +213,7 @@ else {
   inOverallM = System.currentTimeMillis() - issue.getCreated().getTime()
 }
   
-// Переводим из мс в секунды и берем модуль от суммы ячеек в каждом массиве
+// РџРµСЂРµРІРѕРґРёРј РёР· РјСЃ РІ СЃРµРєСѓРЅРґС‹ Рё Р±РµСЂРµРј РјРѕРґСѓР»СЊ РѕС‚ СЃСѓРјРјС‹ СЏС‡РµРµРє РІ РєР°Р¶РґРѕРј РјР°СЃСЃРёРІРµ
   def inOpenS = Math.round(Math.abs(ot.sum()) / 1000)
   def inLocalizationS = Math.round(Math.abs(lt.sum()) / 1000)
   def inEscalationS;
@@ -222,38 +222,38 @@ else {
   def inInProgressS = Math.round(Math.abs(it.sum()) / 1000)
   def inWaitingForS = Math.round(Math.abs(wt.sum()) / 1000);
    
-  // Если ескалированный тикет был закрым 
+ // Р•СЃР»Рё РµСЃРєР°Р»РёСЂРѕРІР°РЅРЅС‹Р№ С‚РёРєРµС‚ Р±С‹Р» Р·Р°РєСЂС‹Рј 
 if (destOverallM > 0) {
-  // Если время эскалации больше destOverallM, то высчитываем разницу между временем эскалации и destOverallM
-  // и заносим в inEscalationS
+  // Р•СЃР»Рё РІСЂРµРјСЏ СЌСЃРєР°Р»Р°С†РёРё Р±РѕР»СЊС€Рµ destOverallM, С‚Рѕ РІС‹СЃС‡РёС‚С‹РІР°РµРј СЂР°Р·РЅРёС†Сѓ РјРµР¶РґСѓ РІСЂРµРјРµРЅРµРј СЌСЃРєР°Р»Р°С†РёРё Рё destOverallM
+  // Рё Р·Р°РЅРѕСЃРёРј РІ inEscalationS
   if (Math.abs(et.sum()) > destOverallM) {
     inEscalationS = Math.round((Math.abs(et.sum()) - destOverallM) / 1000)
   }
-  // Если нет то заносим время эскалации в inEscalationS и добавляем в в переменную add вывода на страницу тикета 
-  // информационное сообщение
+  // Р•СЃР»Рё РЅРµС‚ С‚Рѕ Р·Р°РЅРѕСЃРёРј РІСЂРµРјСЏ СЌСЃРєР°Р»Р°С†РёРё РІ inEscalationS Рё РґРѕР±Р°РІР»СЏРµРј РІ РІ РїРµСЂРµРјРµРЅРЅСѓСЋ add РІС‹РІРѕРґР° РЅР° СЃС‚СЂР°РЅРёС†Сѓ С‚РёРєРµС‚Р° 
+  // РёРЅС„РѕСЂРјР°С†РёРѕРЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ
   else {
     inEscalationS = Math.round(Math.abs(et.sum()) / 1000)
     add = add + "Work was carried out in different issues at the same time\n"
   }
 }
-// Если нет то заносим время эскалации в inEscalationS   
+// Р•СЃР»Рё РЅРµС‚ С‚Рѕ Р·Р°РЅРѕСЃРёРј РІСЂРµРјСЏ СЌСЃРєР°Р»Р°С†РёРё РІ inEscalationS   
 else {
   inEscalationS = Math.round(Math.abs(et.sum()) / 1000)
 }
 
 
- // переводим из секунд в формат времени чч.мм.сс
+ // РїРµСЂРµРІРѕРґРёРј РёР· СЃРµРєСѓРЅРґ РІ С„РѕСЂРјР°С‚ РІСЂРµРјРµРЅРё С‡С‡.РјРј.СЃСЃ
   def inOpen = DateUtils.getDurationString(inOpenS)
   def inLocalization = DateUtils.getDurationString(inLocalizationS)
   def inEscalation = DateUtils.getDurationString(inEscalationS)
-  def inOverall = DateUtils.getDurationString(Math.round(inOverallM / 1000)) // округление до ближайшего целого
+  def inOverall = DateUtils.getDurationString(Math.round(inOverallM / 1000)) // РѕРєСЂСѓРіР»РµРЅРёРµ РґРѕ Р±Р»РёР¶Р°Р№С€РµРіРѕ С†РµР»РѕРіРѕ
   
   
   
-  // Подсчет времени на выполнение задачи как суммы эскалации, локализации и и старта
+  // РџРѕРґСЃС‡РµС‚ РІСЂРµРјРµРЅРё РЅР° РІС‹РїРѕР»РЅРµРЅРёРµ Р·Р°РґР°С‡Рё РєР°Рє СЃСѓРјРјС‹ СЌСЃРєР°Р»Р°С†РёРё, Р»РѕРєР°Р»РёР·Р°С†РёРё Рё Рё СЃС‚Р°СЂС‚Р°
   def inOverall1S = inOpenS + inLocalizationS + inEscalationS
-  def inOverall1 = DateUtils.getDurationString(inOverall1S) + " " + inOverall1S % 60 +"s"   // делим на 60 (перевод в минуты) и возвращаем остаток
-  // Подсчет времени на выполнение задачи как суммы всех действий
+  def inOverall1 = DateUtils.getDurationString(inOverall1S) + " " + inOverall1S % 60 +"s"   // РґРµР»РёРј РЅР° 60 (РїРµСЂРµРІРѕРґ РІ РјРёРЅСѓС‚С‹) Рё РІРѕР·РІСЂР°С‰Р°РµРј РѕСЃС‚Р°С‚РѕРє
+  // РџРѕРґСЃС‡РµС‚ РІСЂРµРјРµРЅРё РЅР° РІС‹РїРѕР»РЅРµРЅРёРµ Р·Р°РґР°С‡Рё РєР°Рє СЃСѓРјРјС‹ РІСЃРµС… РґРµР№СЃС‚РІРёР№
   def inOverallF = inOpenS + inLocalizationS + inEscalationS + inReopenS + inEscalationOSMPS + inInProgressS + inWaitingForS 
   def inOverall2 = DateUtils.getDurationString(inOverallF) + " " + inOverallF % 60 +"s"
   def inOverallW = inOverallF - inWaitingForS
